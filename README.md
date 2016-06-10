@@ -1,4 +1,4 @@
-# Capistrano::Container [![Gem Version](https://badge.fury.io/rb/capistrano-container.svg)](http://badge.fury.io/rb/capistrano-container)
+# Capistrano::Container [![Gem Version](https://badge.fury.io/rb/capistrano-container.svg)](https://badge.fury.io/rb/capistrano-container)
 
 Helps managing [docker]() container and files inside docker container for Capistrano 3.x.
 
