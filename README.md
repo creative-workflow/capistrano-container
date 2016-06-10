@@ -2,13 +2,13 @@
 
 Helps managing [docker]() container and files inside docker container for Capistrano 3.x.
 
-This project is in an early stage but helps me alot dealing with my container deployments and keeps my code clean. It is not only ment for docker, but at the moment there only supports docker, feel free to ditribute =)
+This project is in an early stage but helps me alot dealing with my container deployments and keeps my code clean. It is not only ment for docker, but at the moment it only supports docker, feel free to distribute =)
 
 This gem does not handle Dockerfiles or such things, for that there are enough capistrano modules available.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add this lines to your application's Gemfile:
 
 ```ruby
 gem 'capistrano', '>= 3.0.0'
@@ -31,7 +31,7 @@ require 'capistrano/container'
 
 ## Usage
 ### definition
-To define and register a container do the following in you stage config or deploy.rb:
+To define and register a container do the following in your stage config or deploy.rb:
 
 ```ruby
 ...
@@ -51,9 +51,9 @@ container 'php', roles: %w{php},
 
 This registers two container (db, php) for the server www.example.com. The roles can later be used to filter container like the way you filter server in capistrano.
 
-The container id is optional. If not set the ontainer id is equal to the name you give the container as first argument. The container id will later be used to run docker commands.
+The container id is optional. If not set, the container id is equal to the name you give the container as first argument. The container id will later be used to run docker commands.
 
-If you define a container, the given hosts get the role `:container_host` behind the scenes, so you can filter hosts that running container. Also a container specific role will be added, fo container named php `:container_php`.
+If you define a container, the role `:container_host` will be added to the given hosts, so you can filter hosts that are running container. Also a container specific role will be added, for a container named php `:container_php`.
 
 
 ### commandline tasks
@@ -77,7 +77,7 @@ cap container:unpause              # unpause a docker container
 cap container:update_docker        # update docker
 ```
 
-For every registered container also specific tasks will be registered. For a container named php the following tasks will be available. (With `cap -T` you will the container specific tasks only see if you register your container in the deploy.rb)
+For every registered container, individual tasks will be creazed. For a container named php the following tasks will be available. (With `cap -T` you can see the container specific tasks, but only if you register your container in the deploy.rb and not in the stage file)
 
 ```ruby
 cap container:php:delete           # delete a docker container
@@ -108,7 +108,7 @@ after :deploy, :updated do
   end
 end
 ```
-This filter container with the role `:php` and invokes the task `container:#{container.name}:restart`.
+This filters container with the role `:php` and invokes the task `container:#{container.name}:restart`.
 
 Or inside other tasks
 ```ruby
@@ -117,7 +117,9 @@ Or inside other tasks
   container = container_by_id 'website_company_beta_db'
 ```
 
-A container instance has the following methods:
+Note that you have to use this commands inside a SSHKit context, means inside a `on roles :containers_host do` block for example.
+
+A container has the following methods:
 ```ruby
   # tests if the container has a specific role
   def has_role?(role)
@@ -142,8 +144,8 @@ A container instance has the following methods:
 ```
 
 ## TODO
-  * Implement provider pattern for other container manager.
   * Write tests.
+  * Implement provider pattern for other container manager.
 
 ## Changes
 ### Version 0.0.2
