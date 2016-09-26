@@ -4,14 +4,14 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name        = 'capistrano-container'
-  spec.version     = '0.0.2'
-  spec.date        = '2016-06-08'
+  spec.version     = '0.0.3'
+  spec.date        = '2016-26-09'
   spec.summary     = 'Helps managing docker container and files inside docker container for Capistrano 3.x'
   spec.description = spec.summary
   spec.authors     = ['Tom Hanoldt']
   spec.email       = ['tom@creative-workflow.berlin']
   spec.files       = ['lib/hola.rb']
-  spec.homepage    = 'https://gihub.com/creative-workflow/capistrano-container'
+  spec.homepage    = 'https://github.com/creative-workflow/capistrano-container'
   spec.license     = 'MIT'
 
   spec.files         = `git ls-files`.split($/)
