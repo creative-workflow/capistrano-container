@@ -10,7 +10,6 @@ Gem::Specification.new do |spec|
   spec.description = spec.summary
   spec.authors     = ['Tom Hanoldt']
   spec.email       = ['tom@creative-workflow.berlin']
-  spec.files       = ['lib/hola.rb']
   spec.homepage    = 'https://github.com/creative-workflow/capistrano-container'
   spec.license     = 'MIT'
 
