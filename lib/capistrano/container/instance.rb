@@ -50,7 +50,7 @@ class Instance
   end
 
   def execute(command)
-    command = "docker exec -i #{container_id} bash -c '#{command.gsub("'", "\'")}'"
+    command = "docker exec -i #{container_id} sh -c '#{command.gsub("'", "\'")}'"
 
     @dsl.execute(command)
   end
