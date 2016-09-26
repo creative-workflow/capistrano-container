@@ -1,9 +1,9 @@
 require_relative '../container/mixins.rb'
 
 namespace :container do
-  desc "update docker"
-  task :update_docker do
-    run_container_command("wget -qO- https://get.docker.com/ | sh")
+  desc "show docker version"
+  task :version do
+    run_container_command("-v")
   end
 
   desc "show all docker containers"
@@ -17,4 +17,10 @@ namespace :container do
   end
 
   Mixins.define_tasks
+end
+
+namespace :load do
+  task :defaults do
+    set :local_stage_name, :local
+  end
 end

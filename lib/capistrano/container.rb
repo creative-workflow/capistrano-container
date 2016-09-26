@@ -69,7 +69,7 @@ module Capistrano
 
       else
         on roles(:container_host) do
-            puts capture("docker #{command}")
+          puts capture("docker #{command}")
         end
       end
     end
@@ -80,6 +80,20 @@ module Capistrano
       ask(:container_id, "container id?")
 
       fetch(:container_id)
+    end
+
+    def local_stage?
+      fetch(:local_stage_name).to_sym == fetch(:stage).to_sym
+    end
+
+    def execute_local_or_remote(cmd)
+      if local_stage?
+        run_locally do
+          execute cmd
+        end
+      else
+        execute cmd
+      end
     end
   end
 end

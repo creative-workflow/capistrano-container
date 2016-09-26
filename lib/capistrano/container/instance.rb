@@ -30,6 +30,11 @@ class Instance
   end
 
   def upload!(src, target)
+    if @dsl.local_stage?
+      self.cp(src, "#{container_id}:#{target}")
+      return
+    end
+
     tmp = "#{@config[:shared_on_host]}/capistrano-docker.#{SecureRandom.uuid}.tmp"
 
     @dsl.upload!(src, tmp)
@@ -40,6 +45,11 @@ class Instance
   end
 
   def download!(src, target)
+    if @dsl.local_stage?
+      self.cp("#{container_id}:#{src}", target)
+      return
+    end
+
     tmp = "#{@config[:shared_on_host]}/capistrano-docker.#{SecureRandom.uuid}.tmp"
 
     self.cp("#{container_id}:#{src}", tmp)
@@ -52,13 +62,13 @@ class Instance
   def execute(command)
     command = "docker exec -i #{container_id} sh -c '#{command.gsub("'", "\'")}'"
 
-    @dsl.execute(command)
+    @dsl.execute_local_or_remote(command)
   end
 
   def cp(src, target)
     command = "docker cp #{src} #{target}"
 
-    @dsl.execute(command)
+    @dsl.execute_local_or_remote(command)
   end
 
   def invoke(task_name)

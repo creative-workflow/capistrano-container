@@ -6,6 +6,8 @@ This project is in an early stage but helps me alot dealing with my container de
 
 This gem does not handle Dockerfiles or such things, for that there are enough capistrano modules available.
 
+Container auto detect if they should execute on local or remote depending on stage (see below).
+
 ## Installation
 
 Add this lines to your application's Gemfile:
@@ -143,14 +145,24 @@ A container has the following methods:
   def invoke(task_name)
 ```
 
+### local stage detection
+Local stage per default is named ```:local```. If you which to change do ```set :local_stage_name, :local``` in your stage config.
+
 ## TODO
   * Write tests.
-  * Implement provider pattern for other container manager.
+  * Implement adapter pattern for other container manager.
 
 ## Changes
+### Version 0.0.5
+  * container now auto detect if they should execute, download and upload on local or remote host.
+
 ### Version 0.0.4
   * description
-  
+
+### Version 0.0.3
+  * add local stage detection
+  * container autodetect if they should execute on local or remote host
+
 ### Version 0.0.3
   * use sh instead of bash for docker exec
   * use correct github url
