@@ -148,6 +148,10 @@ A container has the following methods:
   * Implement provider pattern for other container manager.
 
 ## Changes
+### Version 0.0.3
+  * use sh instead of bash for docker exec
+  * use correct github url
+
 ### Version 0.0.2
   * Initial release
 
