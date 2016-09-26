@@ -1,8 +1,8 @@
 # Capistrano::Container [![Gem Version](https://badge.fury.io/rb/capistrano-container.svg)](https://badge.fury.io/rb/capistrano-container)
 
-Helps managing [docker]() container and files inside docker container for Capistrano 3.x.
+Helps managing [docker](https://www.docker.com/) container and files inside docker container for Capistrano 3.x.
 
-This project is in an early stage but helps me alot dealing with my container deployments and keeps my code clean. It is not only ment for docker, but at the moment it only supports docker, feel free to distribute =)
+This project is in an early stage but helps me alot dealing with my container deployments and keeps my code clean. It is not only ment for docker, but at the moment it only supports docker, feel free to contribute =)
 
 This gem does not handle Dockerfiles or such things, for that there are enough capistrano modules available.
 
@@ -148,6 +148,9 @@ A container has the following methods:
   * Implement provider pattern for other container manager.
 
 ## Changes
+### Version 0.0.4
+  * description
+  
 ### Version 0.0.3
   * use sh instead of bash for docker exec
   * use correct github url
