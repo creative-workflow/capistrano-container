@@ -25,7 +25,7 @@ Or install it yourself as:
 
     $ gem install capistrano-container
 
-Dont forget to require the module in your Capfile:
+Dont forget to require the module in your `Capfile`:
 
 ```ruby
 require 'capistrano/container'
