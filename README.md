@@ -4,9 +4,9 @@ Helps managing [docker](https://www.docker.com/) container and files inside dock
 
 This project is in an early stage but helps me alot dealing with my container deployments and keeps my code clean. It is not only ment for docker, but at the moment it only supports docker, feel free to contribute =)
 
-This gem does not handle Dockerfiles or such things, for that there are enough capistrano modules available.
+This gem does not handle Dockerfiles (build, push, etc.) but handles docker container on your dev or staging system.
 
-Container auto detect if they should execute on local or remote depending on stage (see below).
+The container implememnation auto detects if it should run on local or remote docker-engine(see below).
 
 ## Installation
 
@@ -33,12 +33,12 @@ require 'capistrano/container'
 
 ## Usage
 ### definition
-To define and register a container do the following in your stage config or deploy.rb:
+Define and register a container by doing the following in your deploy.rb (or [stage].rb):
 
 ```ruby
 ...
 
-server('www.example.com', user: 'root', roles: %w{web})
+server 'www.example.com', user: 'root', roles: %w{web}
 
 container 'db',  roles: %w{db},
                  container_id: 'website_company_beta_db',
@@ -51,15 +51,15 @@ container 'php', roles: %w{php},
 ...
 ```
 
-This registers two container (db, php) for the server www.example.com. The roles can later be used to filter container like the way you filter server in capistrano.
+This registers two container (db, php) for the server www.example.com. You can use the container roles later to filter container like the way you filter server in capistrano ('on([:role]) do' expresion).
 
-The container id is optional. If not set, the container id is equal to the name you give the container as first argument. The container id will later be used to run docker commands.
+The container id is optional. If its not set, the container id equals to the name you gave the container as first argument. The container id will be used later to run commands like 'container.upload' or 'container.execute' (docker exec [container_id] [command]).
 
-If you define a container, the role `:container_host` will be added to the given hosts, so you can filter hosts that are running container. Also a container specific role will be added, for a container named php `:container_php`.
+If you define a container, the role `:container_host` will be added to the given hosts, so you can filter hosts that are running that specific container. Also a container specific role will be added. For a container like `container 'php',  roles: %w{php}, ...` the host get a role named `:container_php`.
 
 
 ### commandline tasks
-There are general tasks you can run, if needed you will be asked on which container_id the command should run.
+There are generic container tasks you can run on local or remote host (you will be asked for container_id sometimes).
 
 ```ruby
 cap container:all                  # show all docker containers
@@ -79,7 +79,7 @@ cap container:unpause              # unpause a docker container
 cap container:update_docker        # update docker
 ```
 
-For every registered container, individual tasks will be creazed. For a container named php the following tasks will be available. (With `cap -T` you can see the container specific tasks, but only if you register your container in the deploy.rb and not in the stage file)
+Also individual tasks will be created for every container you define in your deploy.rb:
 
 ```ruby
 cap container:php:delete           # delete a docker container
@@ -97,12 +97,12 @@ cap container:php:unpause          # unpause a docker container
 ```
 
 ### ruby tasks
-You can access the defined container like this:
+You can run the pre defined tasks on your container like these:
 
 ```ruby
 after :deploy, :updated do
-  on roles :web do
-    # do your application restarts
+  on roles :web do |host|
+    # do your plain old host application restarts
   end
 
   on_container_roles :php do |container, host|
@@ -110,18 +110,18 @@ after :deploy, :updated do
   end
 end
 ```
-This filters container with the role `:php` and invokes the task `container:#{container.name}:restart`.
+This snipped filters container by the role `:php` and invokes the task `container:#{container.name}:restart`.
 
-Or inside other tasks
+Available container accessors:
 ```ruby
   container = container_by_name :db
   container = container_by_roles :php
   container = container_by_id 'website_company_beta_db'
 ```
 
-Note that you have to use this commands inside a SSHKit context, means inside a `on roles :containers_host do` block for example.
+Note that you have to use these commands inside a SSHKit context, means inside a `on roles :containers_host do` block for example.
 
-A container has the following methods:
+A container provides the following methods:
 ```ruby
   # tests if the container has a specific role
   def has_role?(role)
@@ -132,13 +132,13 @@ A container has the following methods:
   # the container specific role, for a container named php `:container_php`
   def container_role
 
-  # uploads a local file to a temp file on host /tmp, then copies the file into the container with docker cp
+  # uploads a local file to local or remote running container (with docker cp)
   def upload!(src, target)
 
-  # doenloads a container file to host /tmp and then to a local file
+  # downloads a local or remote container file to your local host
   def download!(src, target)
 
-  # executes a command on the docker container with docker exec
+  # executes a command on the local or remote docker container(with docker exec)
   def execute(command)
 
   # invokes a container specific task
@@ -146,10 +146,10 @@ A container has the following methods:
 ```
 
 ### local stage detection
-Local stage per default is named ```:local```. If you which to change do ```set :local_stage_name, :local``` in your stage config.
+Local stage per default is named `:local`. If you which to change do `set :local_stage_name, :local` in your stage config.
 
 ## TODO
-  * Write tests.
+  * integration tests(travis).
   * Implement adapter pattern for other container manager.
 
 ## Changes
