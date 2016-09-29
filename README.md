@@ -33,7 +33,7 @@ require 'capistrano/container'
 
 ## Usage
 ### definition
-Define and register a container by doing the following in your deploy.rb (or [stage].rb):
+Define and register a container by doing the following in your `deploy.rb` (or `[stage].rb`):
 
 ```ruby
 ...
@@ -51,15 +51,15 @@ container 'php', roles: %w{php},
 ...
 ```
 
-This registers two container (db, php) for the server www.example.com. You can use the container roles later to filter container like the way you filter server in capistrano ('on([:role]) do' expresion).
+This registers two container (db, php) for the server www.example.com. You can use the container roles later to filter container like the way you filter server in capistrano (`on([:role]) do ...` expresion).
 
-The container id is optional. If its not set, the container id equals to the name you gave the container as first argument. The container id will be used later to run commands like 'container.upload' or 'container.execute' (docker exec [container_id] [command]).
+The container id is optional. If its not set, the container id equals to the name you gave the container as first argument. The container id will be used later to run commands like `container.upload` or `container.execute` (with `docker exec [container_id] [command]`).
 
-If you define a container, the role `:container_host` will be added to the given hosts, so you can filter hosts that are running that specific container. Also a container specific role will be added. For a container like `container 'php',  roles: %w{php}, ...` the host get a role named `:container_php`.
+If you define a container, the role `:container_host` will be added to the given hosts, so you can filter hosts that are running that specific container. Also a container specific role will be added. For a container like `container 'php', roles: %w{php}, ...` the host get a role named `:container_php`.
 
 
 ### commandline tasks
-There are generic container tasks you can run on local or remote host (you will be asked for container_id sometimes).
+There are generic container tasks you can run on local or remote host (you will be asked for `container_id` sometimes).
 
 ```ruby
 cap container:all                  # show all docker containers
@@ -79,7 +79,7 @@ cap container:unpause              # unpause a docker container
 cap container:update_docker        # update docker
 ```
 
-Also individual tasks will be created for every container you define in your deploy.rb:
+Also individual tasks will be created for every container you define in your `deploy.rb`:
 
 ```ruby
 cap container:php:delete           # delete a docker container
