@@ -6,7 +6,7 @@ This project is in an early stage but helps me alot dealing with my container de
 
 This gem does not handle Dockerfiles (build, push, etc.) but handles docker container on your dev or staging system.
 
-The container implememnation auto detects if it should run on local or remote docker-engine (see below).
+The container implementation auto detects if it should run on local or remote docker-engine (see below).
 
 ## Installation
 
