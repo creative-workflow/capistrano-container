@@ -2,7 +2,7 @@
 
 Helps managing [docker](https://www.docker.com/) container and files inside docker container for Capistrano 3.x.
 
-This project is in an early stage but helps me alot dealing with my container deployments and keeps my code clean. It is not only ment for docker, but at the moment there is only support for docker, feel free to contribute =)
+This project is in an early stage but helps me a lot dealing with my container deployments and keeps my code clean. It is not only meant for docker, but at the moment there is only support for docker, feel free to contribute =)
 
 This gem does not handle Dockerfiles (build, push, etc.) but handles docker container on your dev or staging system.
 
