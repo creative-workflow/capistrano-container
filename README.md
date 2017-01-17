@@ -146,7 +146,7 @@ A container provides the following methods:
 ```
 
 ### local stage detection
-Local stage per default is named `:local`. If you which to change do `set :local_stage_name, :local` in your `deploy.rb`.
+Local stage per default is named `:local`. If you wish to change insert `set :local_stage_name, :my_local` in your `deploy.rb`.
 
 ## TODO
   * integration tests(travis).
