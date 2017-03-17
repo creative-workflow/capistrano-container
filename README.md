@@ -119,7 +119,7 @@ Available container accessors:
   container = container_by_id 'website_company_beta_db'
 ```
 
-Note that you have to use these commands inside a SSHKit context, means inside a `on roles :containers_host do` block for example.
+Note that you have to use these commands inside a SSHKit context, means inside a `on roles :container_host do` block for example.
 
 A container provides the following methods:
 ```ruby
