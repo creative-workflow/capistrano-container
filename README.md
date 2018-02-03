@@ -153,6 +153,9 @@ Local stage per default is named `:local`. If you wish to change insert `set :lo
   * Implement adapter pattern for other container manager.
 
 ## Changes
+### Version 0.0.6
+  * use clean module namespaces
+
 ### Version 0.0.5
   * container now auto detect if they should execute, download and upload on local or remote host.
 

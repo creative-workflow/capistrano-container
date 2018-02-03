@@ -1,14 +1,9 @@
 require_relative 'tasks/container.rb'
+require_relative 'container/instance.rb'
+require_relative 'container/manager.rb'
+require_relative 'container/mixins.rb'
 
-module Capistrano
-  module Container
-    require_relative 'container/instance.rb'
-    require_relative 'container/manager.rb'
-    require_relative 'container/mixins.rb'
-  end
-end
-
-$container_manager = Manager.new
+$container_manager = Capistrano::Container::Manager.new
 
 module Capistrano
   module DSL
